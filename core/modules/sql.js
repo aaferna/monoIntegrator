@@ -1,13 +1,21 @@
 const mysql = require('mysql');
 
-exports.sql = (datastore, query, data = null) => {
+exports.sql = (dbconn, query = null, data = null) => {
+
+    let dataconection = ""
+
+        config.datastore.find(item => {
+            if(item.name === dbconn){
+                dataconection = item.conn
+            }
+        })
 
     let connection = mysql.createConnection({
-        host: datastore.server, 
-        user: datastore.user, 
-        password: datastore.password, 
-        connectTimeout: datastore.connectTimeout, 
-        database: datastore.database
+        host: dataconection.server, 
+        user: dataconection.user, 
+        password: dataconection.password, 
+        connectTimeout: dataconection.connectTimeout, 
+        database: dataconection.database
     });
     
     return new Promise(function(resolve, reject) {
@@ -27,6 +35,7 @@ exports.sql = (datastore, query, data = null) => {
         } else {
 
             connection.query(query, function (error, results, fields) {
+
                 if (error) {
                     log4j.log("error", error);
                     reject(error)
