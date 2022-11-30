@@ -1,0 +1,13 @@
+{
+    "port": 1320,
+    "datastore":{
+        "manager":{
+            "server": "localhost",
+            "user": "root",
+            "password": "",
+            "port": 3306,
+            "connectionreintent": 5,
+            "database": "databaseExample"
+        }
+    }
+}
