@@ -10,7 +10,7 @@ const   express = require("express"),
 
     global.functions = []
 
-    let dirFunc = require("path").join(__dirname, "../core/functions/"),
+    let dirFunc = require("path").join(__dirname, "../functions/"),
         funcFiles = fs.readdirSync(dirFunc);
         funcFiles.forEach(r =>{
             functions[r.replace(".js", "")] = require(dirFunc + "/" + r);
@@ -24,7 +24,7 @@ const   express = require("express"),
     exsrv.use(cors({ origin: '*' }));
 
 
-    let dirApis = require("path").join(__dirname, "../core/components/"),
+    let dirApis = require("path").join(__dirname, "../components/"),
         apiFiles = fs.readdirSync(dirApis);
         apiFiles.forEach(r =>{
             exsrv.use(require(dirApis + "/" + r));
