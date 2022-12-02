@@ -1,16 +1,15 @@
 {
     "port": 1320,
-    "methods": false,
     "datastore":[
         {
-            "name": "manager",
+            "name": "test",
             "conn":{
                 "server": "localhost",
                 "user": "root",
                 "password": "",
                 "port": 3306,
                 "connectionreintent": 5,
-                "database": "metronica_manager"
+                "database": "TEST"
             }
         }
     ]

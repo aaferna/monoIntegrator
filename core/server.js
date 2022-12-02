@@ -7,11 +7,6 @@ const   exsrv = express(),
         cors = require('cors'),
         { jsonErrorHandler } = require("../core/modules/express")
         
-    exsrv.use(express.json())
-    exsrv.use(jsonErrorHandler)
-    exsrv.use(helmet())
-    exsrv.use(cors({ origin: '*' }));
-
     global.functions = []
 
     let dirFunc = require("path").join(__dirname, "../functions/"),
@@ -24,50 +19,54 @@ const   exsrv = express(),
         apiFiles = fs.readdirSync(dirApis);
         apiFiles.forEach(r =>{
             exsrv.use(require(dirApis + "/" + r));
+            
         })
 
+    exsrv.use(express.json())
+    exsrv.use(jsonErrorHandler)
+    exsrv.use(helmet())
+    exsrv.use(cors({ origin: '*' }));
 
-    if(config){
-        exsrv.get('/methods', (req, res) => {
 
-            let methodstoShow = []
+    exsrv.get('/methods', (req, res) => {
 
-            function space(x) {
-                var res = '';
-                while(x--) res += ' ';
-                return res;
-            }
-            
-            function listRoutes(){
-                for (var i = 0; i < arguments.length;  i++) {
-                    if(arguments[i].stack instanceof Array){
-                        arguments[i].stack.forEach(function(a){
-                            var route = a.route;
-                            if(route){
-                                route.stack.forEach(function(r){
-                                    var method = r.method.toUpperCase();
-                                    // console.log(method,space(8 - method.length),route.path);
+        let methodstoShow = []
 
-                                    methodstoShow.push({
-                                        method: method,
-                                        uri: route.path
+        function space(x) {
+            var res = '';
+            while(x--) res += ' ';
+            return res;
+        }
+        
+        function listRoutes(){
+            for (var i = 0; i < arguments.length;  i++) {
+                if(arguments[i].stack instanceof Array){
+                    arguments[i].stack.forEach(function(a){
+                        var route = a.route;
+                        if(route){
+                            route.stack.forEach(function(r){
+                                var method = r.method.toUpperCase();
+                                // console.log(method,space(8 - method.length),route.path);
 
-                                    })
-
+                                methodstoShow.push({
+                                    method: method,
+                                    uri: route.path
 
                                 })
-                            }
-                        });
-                    }
+
+
+                            })
+                        }
+                    });
                 }
             }
-            
-            listRoutes(router)
+        }
+        
+        listRoutes(router)
 
-            res.status(400).json({ routes: methodstoShow }) 
+        res.status(400).json({ routes: methodstoShow }) 
 
-        })
-    }
+    })
 
     exsrv.all('*', (req, res, next) => { 
         log4j.log("warn", `IP ${req.headers['x-forwarded-for'] || req.socket.remoteAddress } :: Method ${ req.method } :: Endpoint ${req.originalUrl} :: No se puede resolver el metodo `)
