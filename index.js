@@ -4,7 +4,7 @@ const   path = require('path'), os = require("os"), cluster = require("cluster")
 const clusterWorkerSize = os.cpus().length
        
         global.log4j  = require("./core/modules/log4j")
-        global.date  = require("./core/modules/date")
+        global.dateT  = require("./core/modules/date")
         global.db  = require("./core/modules/sql")
 
         if( process.argv.slice(2)[0] === "dev"){

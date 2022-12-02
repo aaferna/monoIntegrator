@@ -6,7 +6,12 @@ const   exsrv = express(),
         fs = require('fs'),
         cors = require('cors'),
         { jsonErrorHandler } = require("../core/modules/express")
-        
+
+        exsrv.use(express.json())
+        exsrv.use(jsonErrorHandler)
+        exsrv.use(helmet())
+        exsrv.use(cors({ origin: '*' }));
+
     global.functions = []
 
     let dirFunc = require("path").join(__dirname, "../functions/"),
@@ -21,12 +26,6 @@ const   exsrv = express(),
             exsrv.use(require(dirApis + "/" + r));
             
         })
-
-    exsrv.use(express.json())
-    exsrv.use(jsonErrorHandler)
-    exsrv.use(helmet())
-    exsrv.use(cors({ origin: '*' }));
-
 
     exsrv.get('/methods', (req, res) => {
 
