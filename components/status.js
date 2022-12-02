@@ -1,10 +1,8 @@
-const   express = require('express'), 
-        router = express.Router()
-
     router.get('/v1/manager/status', (req, res) => {
 
 
         // * Ejemplo de Conx. a MySQL
+
         // let conn = db.sql("test", "SELECT * FROM users")
         //     conn.then(data =>{ 
         //         functions["alert"].conlog(data)
