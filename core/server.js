@@ -47,14 +47,10 @@ const   exsrv = express(),
                             route.stack.forEach(function(r){
                                 var method = r.method.toUpperCase();
                                 // console.log(method,space(8 - method.length),route.path);
-
                                 methodstoShow.push({
                                     method: method,
                                     uri: route.path
-
                                 })
-
-
                             })
                         }
                     });
