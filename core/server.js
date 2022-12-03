@@ -12,6 +12,11 @@ const   exsrv = express(),
         exsrv.use(helmet())
         exsrv.use(cors({ origin: '*' }));
 
+        exsrv.use(function(req, res, next) {
+            res.setHeader('monoProcess-ID', process.pid)
+            next();
+        });
+
     global.functions = []
 
     let dirFunc = require("path").join(__dirname, "../functions/"),
@@ -59,7 +64,7 @@ const   exsrv = express(),
         
         listRoutes(router)
 
-        res.status(400).json({ routes: methodstoShow }) 
+        res.status(200).json({ routes: methodstoShow }) 
 
     })
 

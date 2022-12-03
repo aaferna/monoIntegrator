@@ -1,42 +1,32 @@
-const   path = require('path'), os = require("os"), cluster = require("cluster")
+const   path = require('path'), 
+        os = require("os"), 
+        cluster = require("cluster"),
         appserver = require("./core/server")
 
-const clusterWorkerSize = os.cpus().length
-       
-        global.log4j  = require("./core/modules/log4j")
-        global.dateT  = require("./core/modules/date")
-        global.db  = require("./core/modules/sql")
+  if( process.argv.slice(2)[0] === "dev"){
+      deployPath = path.dirname(__filename);
+  } else {
+      deployPath = path.dirname(process.execPath);
+  }
 
-        if( process.argv.slice(2)[0] === "dev"){
+  global.config = require(path.join(deployPath, "/config.json"));
+  global.log4j  = require("./core/modules/log4j")
+  global.dateT  = require("./core/modules/date")
+  global.db  = require("./core/modules/sql")
 
-            deployPath = path.dirname(__filename);
-            global.config = require(path.join(deployPath, "/config.json"));
+  let clusterWorkerSize, port = 999
 
-        } else {
-            
-            deployPath = path.dirname(process.execPath);
-            global.config = require(path.join(deployPath, "/config.json"));
-
-        }
-
-        // appserver.listen(config.port, () => {
-
-        //     console.log(`monoIntegrator se inicializo`)
-        
-        // }).on('error', function (err) {
-        
-        //     if(err.errno === -4091) {
-        //         console.log(`----- El puerto ${config.port} esta ocupado, que tal si usa ${parseInt(config.port) + 1} -----`);
-        //         log4j.log('info' , `El puerto ${config.port} esta ocupado, que tal si usa ${parseInt(config.port) + 1}`)
-        //     } else { 
-        //         log4j.log('error' , err)
-        //     }
-            
-        // });
-
+  if(config.clusterWorkerSize > os.cpus().length){
+    clusterWorkerSize = os.cpus().length 
+    // log4j.log('warn', `Indico ${config.clusterWorkerSize} clusterWorkerSize. Se deja ${os.cpus().length} ya que es la cantidad de CPUs que dispone` )
+    // console.log(`Indico ${config.clusterWorkerSize} clusterWorkerSize. Se deja ${os.cpus().length} ya que es la cantidad de CPUs que dispone`)
+  } else {
+    clusterWorkerSize = config.clusterWorkerSize
+  }
 
 
 try {
+
   if (clusterWorkerSize > 1) {
 
     if (cluster.isMaster) {
@@ -44,32 +34,37 @@ try {
         cluster.fork()
       }
   
-      cluster.on("exit", function(worker) {
-        console.log(`Worker iniciado :: ${worker.id} se cerro de manera inesperada`)
-        log4j.log('error' , `Worker iniciado :: ${worker.id} se cerro de manera inesperada`)
+      cluster.on("exit", function(worker, code, signal) {
+        console.log(`Worker ${worker.id} con PID ${worker.process.pid} se cerro de manera inesperada :: CodeExit ${code} :: Signal ${signal}`)
+        log4j.log('error', `Worker ${worker.id} con PID ${worker.process.pid} se cerro de manera inesperada :: CodeExit ${code} :: Signal ${signal}`)
       })
-  
+
     } else {
-  
-      appserver.listen(config.port, function () {
-        console.log(`Worker iniciado :: ${process.pid} `)
+
+      port = port+cluster.worker.id
+
+      appserver.listen(port, function () {
+        console.log(`Worker ${process.pid} iniciado :: Puerto ${port}`)
       })
-  
+
     }
-  
-    log4j.log('info' , `Worker iniciado :: ${process.pid} `)
-  
+
+    log4j.log('info', `${ 
+      port == 999 ? 
+      "Master :: PID " + process.pid : 
+      "Worker :: PID " + process.pid + " :: Puerto " + port 
+    }`)
+
   } else {
-  
-      appserver.listen(config.port, function () {
-          console.log(`Worker iniciado :: ${process.pid} `)
-      })
-  
-      log4j.log('info' , `Worker iniciado :: ${process.pid} `)
-  
+
+    appserver.listen(port, function () {
+        console.log(`Worker ${process.pid} iniciado :: Puerto ${port}`)
+    })
+
   }
+
 } catch (error) {
   log4j.log('error', `Existe un error al intentar abrir el proceso ${process.pid} :: ${error} ` )
   log4j.log('error',  error)
-  console.log(`Existe un error al intentar abrir el proceso ${process.pid}`)
+  console.log(`Existe un error al intentar abrir el proceso ${process.pid}`, error)
 }
