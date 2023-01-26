@@ -5,7 +5,7 @@ exports.log = (tipo, data) => {
     
     log4js.configure({
         appenders: { 
-            integrator: { type: 'file', filename: './log/'+date.toDay()+'.log', maxLogSize: 5242880, backups: 10 },
+            integrator: { type: 'file', filename: './log/'+dateT.toDay()+'.log', maxLogSize: 5242880, backups: 10 },
         },
         categories: { 
           default: { 

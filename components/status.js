@@ -1,4 +1,4 @@
-    router.get('/v1/manager/status', (req, res) => {
+    router.get('/status', (req, res) => {
 
 
         // * Ejemplo de Conx. a MySQL

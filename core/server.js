@@ -6,7 +6,17 @@ const   exsrv = express(),
         fs = require('fs'),
         cors = require('cors'),
         { jsonErrorHandler } = require("../core/modules/express")
-        
+
+        exsrv.use(express.json())
+        exsrv.use(jsonErrorHandler)
+        exsrv.use(helmet())
+        exsrv.use(cors({ origin: '*' }));
+
+        exsrv.use(function(req, res, next) {
+            res.setHeader('monoProcess-ID', process.pid)
+            next();
+        });
+
     global.functions = []
 
     let dirFunc = require("path").join(__dirname, "../functions/"),
@@ -21,12 +31,6 @@ const   exsrv = express(),
             exsrv.use(require(dirApis + "/" + r));
             
         })
-
-    exsrv.use(express.json())
-    exsrv.use(jsonErrorHandler)
-    exsrv.use(helmet())
-    exsrv.use(cors({ origin: '*' }));
-
 
     exsrv.get('/methods', (req, res) => {
 
@@ -47,14 +51,10 @@ const   exsrv = express(),
                             route.stack.forEach(function(r){
                                 var method = r.method.toUpperCase();
                                 // console.log(method,space(8 - method.length),route.path);
-
                                 methodstoShow.push({
                                     method: method,
                                     uri: route.path
-
                                 })
-
-
                             })
                         }
                     });
@@ -64,7 +64,7 @@ const   exsrv = express(),
         
         listRoutes(router)
 
-        res.status(400).json({ routes: methodstoShow }) 
+        res.status(200).json({ routes: methodstoShow }) 
 
     })
 
