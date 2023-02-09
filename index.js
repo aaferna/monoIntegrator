@@ -47,7 +47,6 @@ const appserver = require("./server");
     }
 
 
-
     try {
   
       const walkSync = (dir, filelist = []) => {
@@ -61,6 +60,9 @@ const appserver = require("./server");
       };
     
       const files = walkSync(dirRout);
+      if(files.length == 0) {
+        log("info", `No hay Rutas para inicializar `)
+      }
       files.forEach(file => {
         if (file.endsWith(".js")) {
           log("info", `Ruta ${file} detectada `)
@@ -71,7 +73,6 @@ const appserver = require("./server");
     } catch (error) {
       log("error", `Existe un inconveniente al validar las rutas :: ${error}`);
     }
-
 
     log("info", `Master se inicio bajo PID ${process.pid}`)
 
