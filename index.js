@@ -7,6 +7,8 @@ global.log = require("./modules/log4j").log
 global.port = parseInt(process.env.PORT) || 3000;
 global.functions = {};
 global.fs = require("fs");
+global.path = require('path');
+global.dirRout = `./routes/`;
 
 const cluster = require("cluster")
 const numCPUs = require('os').cpus().length;
@@ -14,7 +16,6 @@ const dirFunc = "./functions/";
 
   try {
       fs.readdirSync(dirFunc).forEach(filename => {
-          // log("info", `Se inicializo el Paquete de Funcion ${filename.replace(".js", "")} `)
           if (filename.endsWith(".js")) {
               const functionName = filename.replace(".js", "");
               functions[functionName] = require(dirFunc+filename);
@@ -41,10 +42,35 @@ const appserver = require("./server");
           log("info", `Funcion ${filename.replace(".js", "")} detectada `)
       });
     } catch (error) {
-        log("warn", "No existen funciones por importar")
+        log("warn", `Existio un inconveniente al validar las funciones :: ${error}`)
+        process.exit()
     }
 
+
+
+    try {
+  
+      const walkSync = (dir, filelist = []) => {
+        fs.readdirSync(dir).forEach(file => {
+          filelist = fs.statSync(path.join(dir, file)).isDirectory()
+            ? walkSync(path.join(dir, file), filelist)
+            : filelist.concat(path.join(dir, file));
+        });
+  
+        return filelist;
+      };
     
+      const files = walkSync(dirRout);
+      files.forEach(file => {
+        if (file.endsWith(".js")) {
+          log("info", `Ruta ${file} detectada `)
+
+        }
+      });
+    
+    } catch (error) {
+      log("error", `Existe un inconveniente al validar las rutas :: ${error}`);
+    }
 
 
     log("info", `Master se inicio bajo PID ${process.pid}`)

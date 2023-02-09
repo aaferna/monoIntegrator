@@ -3,11 +3,8 @@ const cors = require('cors')
 const app = express();
 const helmet = require('helmet')
 const { jsonErrorHandler, notFoundHandler, DDOSBlock } = require("./modules/expressHandle");
-const dirRout = `./routes/`;
-global.executeSQL = require("./modules/sql").executeSQL
 
-// global.executeMultipleQueriesAsync = require("./modules/sql").executeMultipleQueriesAsync
-// global.executeMultipleQuerie = require("./modules/sql").executeMultipleQuerie
+global.executeSQL = require("./modules/sql").executeSQL
 global.router = express.Router()
 
 app.use(express.json())
@@ -23,19 +20,33 @@ if(parseInt(process.env.DDOSSTATUS)){
     app.use(DDOSBlock);
 }
 
-    try {
+try {
+  
+    const walkSync = (dir, filelist = []) => {
+        fs.readdirSync(dir).forEach(file => {
+            filelist = fs.statSync(path.join(dir, file)).isDirectory()
+                ? walkSync(path.join(dir, file), filelist)
+                : filelist.concat(path.join(dir, file));
+        });
 
-        fs.readdirSync(dirRout).forEach(file => {
+        return filelist;
+    };
+  
+    const files = walkSync(dirRout);
+        files.forEach(file => {
             if (file.endsWith(".js")) {
-                const route = require(`${dirRout}/${file}`);
+                const route = require(`./${file}`);
                 app.use(route);
             }
         });
-
-    } catch (error) {
-        log("error", `Existe un inconveniente al importar un paquete de rutas :: ${error}`)
-    }
+  
+} catch (error) {
+    log("error", `Existe un inconveniente al importar un paquete de rutas :: ${error}`);
+}
     
+app.get('/status', (req, res) => {
+    res.json({ "keep" : "alive" }) 
+})
 
 app.use(notFoundHandler)
 
