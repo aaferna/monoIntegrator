@@ -8,7 +8,7 @@
                 "password": "",
                 "port": 3306,
                 "connectionreintent": 5,
-                "database": "database"
+                "database": "db"
             }
         }
     ]
