@@ -29,6 +29,7 @@ try {
 
 
   if(process.argv.slice(2)[0] === "dev"){
+    
     log("info", `monoIntegrator iniciado en modo Desarrollador`)
     
     if(parseInt(process.env.DDOSSTATUS)){
