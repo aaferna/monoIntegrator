@@ -5,6 +5,7 @@ const helmet = require('helmet')
 const { jsonErrorHandler, notFoundHandler, DDOSBlock } = require("./modules/expressHandle");
 
 global.executeSQL = require("./modules/sql").executeSQL
+global.executeSQLS = require("./modules/sql").executeSQLS
 global.router = express.Router()
 
 app.use(express.json())
@@ -45,6 +46,7 @@ try {
 }
     
 app.get('/status', (req, res) => {
+    
     res.json({ "keep" : "alive" }) 
 })
 

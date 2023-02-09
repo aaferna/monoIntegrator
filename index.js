@@ -11,26 +11,26 @@ global.path = require('path');
 global.dirRout = `./routes/`;
 
 const cluster = require("cluster")
-const numCPUs = require('os').cpus().length;
 const dirFunc = "./functions/";
 
-  try {
-      fs.readdirSync(dirFunc).forEach(filename => {
-          if (filename.endsWith(".js")) {
-              const functionName = filename.replace(".js", "");
-              functions[functionName] = require(dirFunc+filename);
-          }
-      });
-  } catch (error) {
-      log("warn", `PID ${process.pid} :: Existe un error al importar una funcion :: ${error}`)
-  }
+let numCPUs = require('os').cpus().length;
+
+try {
+  let funfiles = fs.readdirSync(dirFunc)
+      funfiles.forEach(filename => {
+      if (filename.endsWith(".js")) {
+          const functionName = filename.replace(".js", "");
+          functions[functionName] = require(dirFunc+filename);
+      }
+  });
+} catch (error) {
+  log("warn", `PID ${process.pid} :: Existe un error al importar una funcion :: ${error}`)
+}
 
 
-const appserver = require("./server");
-
-
-  if (cluster.isMaster) {
-
+  if(process.argv.slice(2)[0] === "dev"){
+    log("info", `monoIntegrator iniciado en modo Desarrollador`)
+    
     if(parseInt(process.env.DDOSSTATUS)){
       log("info", `Modulo DDOSBlock Habilitado`)
     }else{
@@ -45,7 +45,6 @@ const appserver = require("./server");
         log("warn", `Existio un inconveniente al validar las funciones :: ${error}`)
         process.exit()
     }
-
 
     try {
   
@@ -74,30 +73,37 @@ const appserver = require("./server");
       log("error", `Existe un inconveniente al validar las rutas :: ${error}`);
     }
 
-    log("info", `Master se inicio bajo PID ${process.pid}`)
+    const appserver = require("./server");
+          appserver.listen(port, () => {
+            log("info", `Servidor iniciado en el puerto ${port} bajo PID ${process.pid}`)
+          });
 
-    // Crea un trabajador por cada núcleo
-
-      for (let i = 0; i < numCPUs; i++) {
-        cluster.fork();
-      }
-    
-      cluster.on('exit', (worker, code, signal) => {
-        log("info", `El Proceso ${worker.process.pid} se cerro bajo el codigo ${code} y con señal ${signal}`);
-        // cluster.fork();
-        // log("info", `Se inicia un nuevo Worker con el PID ${worker.process.pid}`);
-      });
-  
   } else {
-  
-    // Iniciamos el servidor
 
+    if (cluster.isMaster) {
+
+
+      log("info", `Master se inicio bajo PID ${process.pid}`)
+
+        for (let i = 0; i < numCPUs; i++) {
+          cluster.fork();
+        }
+      
+        cluster.on('exit', (worker, code, signal) => {
+          log("info", `El Proceso ${worker.process.pid} se cerro bajo el codigo ${code} y con señal ${signal}`);
+          // cluster.fork();
+          // log("info", `Se inicia un nuevo Worker con el PID ${worker.process.pid}`);
+        });
+    
+    } else {
+    
       port = port + cluster.worker.id
+      const appserver = require("./server");
+            appserver.listen(port, () => {
+              log("info", `Servidor iniciado en el puerto ${port} bajo PID ${process.pid}`)
+            });
 
-      appserver.listen(port, () => {
-        log("info", `Servidor iniciado en el puerto ${port} bajo PID ${process.pid}`)
-      });
+    }
 
-
-}
+  }
 

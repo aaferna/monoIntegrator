@@ -4,8 +4,8 @@
   "description": "monoIntegrator",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon index.js dev",
-    "start": "index.js prod"
+    "start:dev": "nodemon index.js dev",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,8 @@
     "log4js": "^6.6.1",
     "luxon": "^3.0.1",
     "mysql": "^2.18.1",
-    "mysql2": "^3.1.1"
+    "mysql2": "^3.1.1",
+    "sync-mysql": "^3.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.19"

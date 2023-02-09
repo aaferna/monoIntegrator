@@ -1,4 +1,5 @@
 const mysql = require("mysql2");
+const mysqlSy = require('sync-mysql')
 const dbconect = require("../db/datastores.json").datastore
 
 function executeSQL(database, sql) {
@@ -35,6 +36,43 @@ function executeSQL(database, sql) {
   });
 }
 
+function executeSQLS (database, sql) {
+  try{
+
+    let connection;
+    let response;
+
+    const selectedDB = dbconect.find(item => item.name === database);
+
+    if (selectedDB) {
+
+      connection = new mysqlSy({
+        host: selectedDB.conn.server,
+        user: selectedDB.conn.user,
+        password: selectedDB.conn.password,
+        connectTimeout: selectedDB.conn.connectTimeout,
+        database: selectedDB.conn.database
+      });
+
+    } else {
+
+      log("error", `El Conector "${database}" no es correcto o no existe`, "SQL");
+      return { status: 0 };
+
+    }
+
+    response = connection.query(sql)
+    connection.finishAll()
+
+    return response;
+
+  } catch (error) {
+    log("error", `Existe un error en la consulta :: ${error}`, "SQL")
+    return { status: 0 };
+  }
+}
+
 module.exports = {
-  executeSQL
+  executeSQL,
+  executeSQLS
 };
