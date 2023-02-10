@@ -2,63 +2,66 @@ const { randomUUID } = require('crypto');
 const requestLog = [];
 const blockedIPs = [];
 
-exports.jsonErrorHandler = async (err, req, res, next) => {
-    
-  const idreq = randomUUID();
-  const userIP = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-  const method = req.method;
-  const endpoint = req.originalUrl;
+exports.reqInfo = (req) =>{
+  return {
+    id: randomUUID(),
+    ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+    uri: req.originalUrl,
+    method: req.method
+  }
+}
 
-  log("warn", `IDREQ: ${idreq} :: IP: ${userIP} :: Method: ${method} :: Endpoint: ${endpoint} :: Se enviaron datos que no estan formateados en JSON`, "DDOS");
+exports.jsonErrorHandler = async (err, req, res, next) => {
+
+  const { id, ip, uri, method } = this.reqInfo(req)
+
+  log("error", `Se enviaron datos que no estan formateados en JSON - ${ id } :: ${ ip } :: ${ uri } :: ${ method } :: ${ err }`, "DDOS")
 
   res.status(400).json({
     msg: "Existe un inconveniente en la solicitud",
-    idreq: idreq
+    id: id
   });
 };
 
 exports.notFoundHandler = (req, res, next) => {
-  const idreq = randomUUID();
-  const userIP = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-  const method = req.method;
-  const endpoint = req.originalUrl;
 
-  log("warn", `IDREQ: ${idreq} :: IP: ${userIP} :: Method: ${method} :: Endpoint: ${endpoint} :: URL no encontrada`, "DDOS");
+  const { id, ip, uri, method } = this.reqInfo(req)
+
+  log("warn", `URL no encontrada - ${ id } :: ${ ip } :: ${ uri } :: ${ method } `, "DDOS")
 
   res.status(404).json({ msg: 'Ruta no encontrada', 
-    idreq: idreq
+    id: id
   });
+
 };
 
 exports.DDOSBlock = (req, res, next) => {
 
-  const idreq = randomUUID();
-  // Obtener la dirección IP del usuario
-  const userIP = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-  const method = req.method;
-  const endpoint = req.originalUrl;
+  const { id, ip, uri, method } = this.reqInfo(req)
+
+  // log("warn", `URL no encontrada - ${ id } :: ${ ip } :: ${ uri } :: ${ method } `, "DDOS")
 
   // Verificar si la IP está bloqueada
-  if (blockedIPs.includes(userIP)) {
+  if (blockedIPs.includes(ip)) {
 
-    log("warn", `IDREQ: ${idreq} :: IP: ${userIP} :: Method: ${method} :: Endpoint: ${endpoint} :: IP reintento pero se encuentra Bloqueada`, "DDOS");
+    log("warn", `IP reintento pero se encuentra Bloqueada - ${ id } :: ${ ip } :: ${ uri } :: ${ method } `, "DDOS")
 
       return res.status(429).json({
           msg: "Su IP se encuentra bloqueada temporalmente por reintento",
-          idreq: idreq
+          id: id
       });
   }
 
   // Almacenar la solicitud en el registro de solicitudes
   requestLog.push({
-    userIP: userIP,
+    userIP: ip,
     time: new Date()
   });
 
   // Contar las solicitudes repetidas de la IP
   let repeatRequestCount = 0;
   requestLog.forEach((request) => {
-    if (request.userIP === userIP && (new Date() - request.time) < parseInt(process.env.DDOSTIMOUT)) {
+    if (request.userIP === ip && (new Date() - request.time) < parseInt(process.env.DDOSTIMOUT)) {
       repeatRequestCount++;
     }
   });
@@ -66,11 +69,12 @@ exports.DDOSBlock = (req, res, next) => {
   // Si la IP ha realizado más de 10 solicitudes repetidas, bloquearla
   if (repeatRequestCount >= parseInt(process.env.DDOSINTENTOS)) {
 
-      log("warn", `IDREQ: ${idreq} :: IP: ${userIP} :: Method: ${method} :: Endpoint: ${endpoint} :: IP Bloqueada`, "DDOS");
-      blockedIPs.push(userIP);
+      log("warn", `IP Bloqueada - ${ id } :: ${ ip } :: ${ uri } :: ${ method } `, "DDOS")
+
+      blockedIPs.push(ip);
       return res.status(429).json({
           msg: "Su IP se encuentra bloqueada temporalmente por reintento",
-          idreq: idreq
+          id: id
 
       });
   }
@@ -78,17 +82,6 @@ exports.DDOSBlock = (req, res, next) => {
   next();
 }
 
-/**
- * Esta funcion retornara la informacion de la solicitud
- */
-exports.reqInfo = (req) =>{
-    return {
-      id: randomUUID(),
-      ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
-      uri: req.originalUrl,
-      method: req.method
-    }
-}
 
 
 
