@@ -17,6 +17,9 @@ let numCPUs = require('os').cpus().length;
 
 try {
   let funfiles = fs.readdirSync(dirFunc)
+    if(funfiles.length == 0) {
+      log("info", `No hay Funciones para inicializar `)
+    }
       funfiles.forEach(filename => {
       if (filename.endsWith(".js")) {
           const functionName = filename.replace(".js", "");

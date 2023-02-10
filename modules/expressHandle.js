@@ -58,7 +58,7 @@ exports.DDOSBlock = (req, res, next) => {
   // Contar las solicitudes repetidas de la IP
   let repeatRequestCount = 0;
   requestLog.forEach((request) => {
-    if (request.userIP === userIP && (new Date() - request.time) < 1000) {
+    if (request.userIP === userIP && (new Date() - request.time) < parseInt(process.env.DDOSTIMOUT)) {
       repeatRequestCount++;
     }
   });
@@ -78,19 +78,26 @@ exports.DDOSBlock = (req, res, next) => {
   next();
 }
 
+/**
+ * Esta funcion retornara la informacion de la solicitud
+ */
+exports.reqInfo = (req) =>{
+    return {
+      id: randomUUID(),
+      ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+      uri: req.originalUrl,
+      method: req.method
+    }
+}
 
-// Verificar periódicamente si es necesario desbloquear una IP
+
+
   setInterval(() => {
     const currentTime = new Date();
-  
-    // Recorrer la lista de IPs bloqueadas
     blockedIPs.forEach((ip, index) => {
-      // Verificar si la IP ha sido bloqueada hace más de 12 horas
       const timeDifference = currentTime - requestLog.find(r => r.userIP === ip).time;
       if (timeDifference >= 12 * 60 * 60 * 1000) {
-        // if (timeDifference >= 12 * 60 * 60 * 1000) {
-        // Eliminar la IP de la lista de IPs bloqueadas
         blockedIPs.splice(index, 1);
       }
     });
-  }, 60 * 60 * 1000); // Verificar cada hora
+  }, 60 * 60 * 1000); 
