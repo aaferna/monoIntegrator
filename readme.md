@@ -1,3 +1,14 @@
+                                 _____         _                              _
+                                |_   _|       | |                            | |
+ _ __ ___    ___   _ __    ___    | |   _ __  | |_   ___   __ _  _ __   __ _ | |_   ___   _ __
+| '_ ` _ \  / _ \ | '_ \  / _ \   | |  | '_ \ | __| / _ \ / _` || '__| / _` || __| / _ \ | '__|
+| | | | | || (_) || | | || (_) | _| |_ | | | || |_ |  __/| (_| || |   | (_| || |_ | (_) || |
+|_| |_| |_| \___/ |_| |_| \___/  \___/ |_| |_| \__| \___| \__, ||_|    \__,_| \__| \___/ |_|
+                                                           __/ |
+                                                          |___/
+
+
+
 ¡Descubre monoIntegrator, el integrador basado en Node.js y Express.js especialmente diseñado para el mundo tech!
 
 ¿Qué es monoIntegrator? Es una poderosa herramienta multicore que te permite integrar fácilmente diferentes sistemas y servicios en tu aplicación. Olvídate de las complicaciones de configuración y enfoques tradicionales. Con monoIntegrator, todo es más simple y eficiente.
