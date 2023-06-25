@@ -1,5 +1,4 @@
 {
-    "port": 1320,
     "datastore":[
         {
             "name": "test",
@@ -9,8 +8,12 @@
                 "password": "",
                 "port": 3306,
                 "connectionreintent": 5,
-                "database": "TEST"
+                "database": "test",
+                "connectionLimit": 10,
+                "waitForConnections": 10,
+                "queueLimit": 10
             }
         }
     ]
+    
 }
