@@ -5,7 +5,7 @@ const blockedIPs = [];
 exports.reqInfo = (req) =>{
   return {
     id: randomUUID(),
-    ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+    ip: req.headers['x-forwarded-for'],
     uri: req.originalUrl,
     method: req.method
   }
@@ -81,9 +81,6 @@ exports.DDOSBlock = (req, res, next) => {
 
   next();
 }
-
-
-
 
   setInterval(() => {
     const currentTime = new Date();

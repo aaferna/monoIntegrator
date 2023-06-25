@@ -2,6 +2,7 @@ require("dotenv").config();
 
 global.datetoDay = require("./modules/date").datetoDay
 global.dateNow = require("./modules/date").dateNow
+global.dateDB = require("./modules/date").dateDB
 global.datetoJSON = require("./modules/date").datetoJSON
 global.log = require("./modules/log4j").log
 global.port = parseInt(process.env.PORT) || 3000;

@@ -4,6 +4,11 @@ const formatearFecha = (fecha) => {
     return fecha.setZone('America/Argentina/Buenos_Aires');
 };
 
+const dateDB = () => {
+    let date = formatearFecha(DateTime.local());
+    return date.toFormat('yyyy-MM-dd HH:mm:ss');
+};
+
 const dateNow = () => {
     let date = formatearFecha(DateTime.local());
     return date.toLocaleString(DateTime.DATETIME_FULL);
@@ -29,5 +34,6 @@ const datetoJSON = () => {
 module.exports = {
     datetoDay,
     dateNow,
-    datetoJSON
+    datetoJSON,
+    dateDB
 };

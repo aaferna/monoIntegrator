@@ -11,8 +11,8 @@ global.reqInfo = reqInfo
 global.router = express.Router()
 
 app.use(express.json())
-app.use(helmet())
-app.use(cors({ origin: '*' }));
+//  app.use(helmet())
+//  app.use(cors({ origin: '*' }));
 app.use(jsonErrorHandler)
 
 app.use(endpointMiddleware);

@@ -1,14 +1,17 @@
 {
     "datastore":[
         {
-            "name": "manager",
+            "name": "test",
             "conn":{
                 "server": "localhost",
                 "user": "root",
                 "password": "",
                 "port": 3306,
                 "connectionreintent": 5,
-                "database": ""
+                "database": "test",
+                "connectionLimit": 10,
+                "waitForConnections": 10,
+                "queueLimit": 10
             }
         }
     ]
