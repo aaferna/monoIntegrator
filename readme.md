@@ -1,7 +1,7 @@
 
 <p align="center">
   <img width="500" src="https://raw.githubusercontent.com/aaferna/monoIntegrator/main/index.svg">
-  <br>
+  <br><br>
   Integrador basado en Node.js y Express.js
   <br> <br> <br>
 </p>
