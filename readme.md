@@ -1,12 +1,15 @@
 
-<img src="https://raw.githubusercontent.com/aaferna/monoIntegrator/main/index.svg">
+<p align="center">
+  <img width="500" src="https://raw.githubusercontent.com/aaferna/monoIntegrator/main/index.svg">
+  <br>
+  Integrador basado en Node.js y Express.js
+  <br> <br> <br>
+</p>
 
 
 
-
-¡Descubre monoIntegrator, el integrador basado en Node.js y Express.js especialmente diseñado para el mundo tech!
-
-¿Qué es monoIntegrator? Es una poderosa herramienta multicore que te permite integrar fácilmente diferentes sistemas y servicios en tu aplicación. Olvídate de las complicaciones de configuración y enfoques tradicionales. Con monoIntegrator, todo es más simple y eficiente.
+### ¿Qué es monoIntegrator? 
+Es una poderosa herramienta multicore que te permite integrar fácilmente diferentes sistemas y servicios en tu aplicación. Olvídate de las complicaciones de configuración y enfoques tradicionales. Con monoIntegrator, todo es más simple y eficiente.
 
 La principal diferencia entre monoIntegrator y Express.js es que este último te brinda una estructura flexible para diseñar tus propias reglas de integración. En cambio, monoIntegrator ya tiene todo lo necesario para que puedas enfocarte en crear reglas personalizadas y trabajar como un integrador a medida.
 
