@@ -1,4 +1,6 @@
-![image](https://github.com/aaferna/monoIntegrator/assets/38817071/295e45de-fe15-40a1-a73d-cf2b3deb6cfd)
+<center>
+![image](https://raw.githubusercontent.com/aaferna/monoIntegrator/main/index.svg)
+</center>
 
 
 
