@@ -1,6 +1,6 @@
-<center>
-![image](https://raw.githubusercontent.com/aaferna/monoIntegrator/main/index.svg)
-</center>
+
+<img src="https://raw.githubusercontent.com/aaferna/monoIntegrator/main/index.svg">
+
 
 
 
