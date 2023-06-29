@@ -21,9 +21,16 @@ La integración se vuelve aún más sencilla con las funciones predefinidas de m
 Descubre monoIntegrator y lleva tus integraciones al siguiente nivel; Simplifica tu proceso de desarrollo y ahorra tiempo utilizando esta potente herramienta diseñada para el mundo tech.
 
 
+
+
+
 <p align="center">
   <br>
-  <bR>
+  <br>
+  <strong> Documentacion en desarrollo </strong>
+  <br>
+  <br>
+  <br>
     <img src="https://img.shields.io/github/downloads/aaferna/monoIntegrator/total">  
     <img src="https://img.shields.io/github/v/release/aaferna/monoIntegrator">  
     <img src="https://img.shields.io/github/release-date/aaferna/monoIntegrator">  
