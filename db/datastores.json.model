@@ -1,0 +1,47 @@
+{
+    "datastore":[
+        {
+            "name": "manager",
+            "conn":{
+                "server": "localhost",
+                "user": "root",
+                "password": "",
+                "port": 3306,
+                "connectionreintent": 5,
+                "database": "metronica_manager",
+                "connectionLimit": 10,
+                "waitForConnections": 10,
+                "queueLimit": 10
+            }
+        },
+        {
+            "name": "general",
+            "conn":{
+                "server": "localhost",
+                "user": "root",
+                "password": "",
+                "port": 3306,
+                "connectionreintent": 5,
+                "database": "metronica_general",
+                "connectionLimit": 10,
+                "waitForConnections": 10,
+                "queueLimit": 10
+            }
+        },
+        {
+            "name": "retail",
+            "conn":{
+                "server": "localhost",
+                "user": "root",
+                "password": "",
+                "port": 3306,
+                "connectionreintent": 5,
+                "database": "metronica_retail",
+                "connectionLimit": 10,
+                "waitForConnections": 10,
+                "queueLimit": 10
+            }
+        }
+    ]
+    
+}
