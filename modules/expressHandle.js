@@ -1,6 +1,6 @@
 const { randomUUID } = require('crypto');
 
-exports.reqInfo = req => {
+exports.trx = req => {
 	return {
 		id: randomUUID(),
 		ip: req.headers['x-forwarded-for'],
@@ -14,8 +14,8 @@ exports.jsonErrorHandler = async (err, req, res, next) => {
 
 	log(
 		'error',
-		`Se enviaron datos que no estan formateados en JSON - ${id} :: ${ip} :: ${uri} :: ${method} :: ${err}`,
-		'DDOS',
+		`${id} :: ${ip} :: ${uri} :: ${method} :: ${err} - Se enviaron datos que no estan formateados en JSON`,
+		'Integrator',
 	);
 
 	res.status(400).json({
@@ -29,8 +29,8 @@ exports.notFoundHandler = (req, res, next) => {
 
 	log(
 		'warn',
-		`URL no encontrada - ${id} :: ${ip} :: ${uri} :: ${method} `,
-		'DDOS',
+		`${id} :: ${ip} :: ${uri} :: ${method} - URL no encontrada`,
+		'Integrator',
 	);
 
 	res.status(404).json({ msg: 'Ruta no encontrada', id: id });
