@@ -1,5 +1,5 @@
 <center>
-    <img src="https://raw.githubusercontent.com/aaferna/monoIntegrator/main/logo.svg" alt="Twitter"  />
+    <img src="https://raw.githubusercontent.com/aaferna/monoIntegrator/main/banner.png"  />
 </center>
 
 

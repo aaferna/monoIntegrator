@@ -6,9 +6,9 @@ const {
 	jsonErrorHandler,
 	notFoundHandler,
 	trx,
-} = require('./modules/expressHandle');
+} = require('./core/expressHandle');
 
-global.MySQL = require('./modules/sql').executeSQL;
+global.MySQL = require('./core/sql').executeSQL;
 global.trx = trx;
 global.router = express.Router();
 

@@ -1,9 +1,9 @@
 require('dotenv').config();
 
-log = require('./modules/log4j').log;
-global.debug = require('./modules/log4j').debug;
+log = require('./core/log4j').log;
+global.debug = require('./core/log4j').debug;
 global.port = parseInt(process.env.PORT) || 3000;
-global.functions = {};
+global.fun = {};
 global.fs = require('fs');
 global.path = require('path');
 global.dirRout = './routes/';
@@ -29,7 +29,7 @@ try {
 		if (file.endsWith('.js')) {
 			try {
 				const functionName = file.split('/').pop().replace('.js', '');
-				global.functions[functionName] = require(`./${file}`);
+				global.fun[functionName] = require(`./${file}`);
 			} catch (error) {
 				log('error', `Existe un inconveniente al importar la función ubicada en ${file}: ${error}`);
 			}
