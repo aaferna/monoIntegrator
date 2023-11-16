@@ -11,8 +11,8 @@
   <strong>Tenga presente que este codigo es un experimento</strong>
   <br> <br>
     <strong>
-      <a href="https://github.com/gusgeek/bodi-dolar-py-app/issues/new"> Ofrecer una Idea </a> | 
-      <a href="https://github.com/gusgeek/bodi-dolar-py-app/releases/latest"> Obtenerlo </a>
+      <a href="https://github.com/gusgeek/monointegrator/issues/new"> Ofrecer una Idea </a> | 
+      <a href="https://github.com/gusgeek/monointegrator/releases/latest"> Obtenerlo </a>
       <br><br>
       <a href="https://agustin-fernandez.gitbook.io/monointegrator/"> Ver la Documentacion </a>
       <br> <br>
