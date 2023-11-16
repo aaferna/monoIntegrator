@@ -1,7 +1,6 @@
 <center>
-![image](https://raw.githubusercontent.com/aaferna/monoIntegrator/main/index.svg)
+    <img src="https://raw.githubusercontent.com/aaferna/monoIntegrator/main/logo.svg" alt="Twitter"  />
 </center>
-
 
 
 ¡Descubre monoIntegrator, el integrador basado en Node.js y Express.js especialmente diseñado para el mundo tech!
