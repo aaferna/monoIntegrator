@@ -11,8 +11,8 @@
   <strong>Tenga presente que este codigo es un experimento</strong>
   <br> <br>
     <strong>
-      <a href="https://github.com/aaferna/monointegrator/issues/new"> Ofrecer una Idea </a> | 
-      <a href="https://github.com/aaferna/monointegrator/releases/latest"> Obtenerlo </a>
+      <a href="https://github.com/github/monointegrator/issues/new"> Ofrecer una Idea </a> | 
+      <a href="https://github.com/github/monointegrator/releases/latest"> Obtenerlo </a>
       <br><br>
       <a href="https://agustin-fernandez.gitbook.io/monointegrator/"> Ver la Documentacion </a>
       <br> <br>
@@ -21,10 +21,10 @@
 
 <br><br>
 <p align="center">
-    <img src="https://img.shields.io/aaferna/downloads/aaferna/monoIntegrator/total">  
-    <img src="https://img.shields.io/aaferna/v/release/aaferna/monoIntegrator">  
-    <img src="https://img.shields.io/aaferna/release-date/aaferna/monoIntegrator">  
-    <img src="https://img.shields.io/aaferna/languages/code-size/aaferna/monoIntegrator">
+    <img src="https://img.shields.io/github/downloads/aaferna/monoIntegrator/total">  
+    <img src="https://img.shields.io/github/v/release/aaferna/monoIntegrator">  
+    <img src="https://img.shields.io/github/release-date/aaferna/monoIntegrator">  
+    <img src="https://img.shields.io/github/languages/code-size/aaferna/monoIntegrator">
   <br><br>
   <strong>:pencil2: con :heart:</strong>
 </p>
