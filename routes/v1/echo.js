@@ -1,17 +1,15 @@
-const echo = (req, res) => {
-    const { id, ip, uri, method } = reqInfo(req);
-  
-    try {
+router.all("/echo", (req, res) => {
+  const { id, ip, uri, method } = reqInfo(req);
 
-      res.status(200).json({ id, ip, uri, method });
+  try {
 
-     
-    } catch (err) {
-      log("error", `Existe un inconveniente - ${ id } :: ${ ip } :: ${ uri } :: ${ method } :: ${ err }`, "Manager");
-      res.status(500).json({ msg: "Existe un inconveniente en la solicitud", id });
-    }
-  };
+    res.status(200).json({ id, ip, uri, method });
 
-router.all("/echo", echo);
 
-module.exports = router;
+  } catch (err) {
+    log("error", `Existe un inconveniente - ${id} :: ${ip} :: ${uri} :: ${method} :: ${err}`, "Manager");
+    res.status(500).json({ msg: "Existe un inconveniente en la solicitud", id });
+  }
+});
+
+export default router;
