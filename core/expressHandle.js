@@ -10,7 +10,7 @@ exports.trx = req => {
 };
 
 exports.jsonErrorHandler = async (err, req, res, next) => {
-	const { id, ip, uri, method } = this.reqInfo(req);
+	const { id, ip, uri, method } = this.trx(req);
 
 	log(
 		'error',
@@ -25,7 +25,7 @@ exports.jsonErrorHandler = async (err, req, res, next) => {
 };
 
 exports.notFoundHandler = (req, res, next) => {
-	const { id, ip, uri, method } = this.reqInfo(req);
+	const { id, ip, uri, method } = this.trx(req);
 
 	log(
 		'warn',

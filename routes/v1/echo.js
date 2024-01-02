@@ -1,10 +1,10 @@
 router.all("/echo", (req, res) => {
-  const { id, ip, uri, method } = reqInfo(req);
+  const { id, ip, uri, method } = trx(req);
 
   try {
 
+    fun['console.log'].con('hole')
     res.status(200).json({ id, ip, uri, method });
-
 
   } catch (err) {
     log("error", `Existe un inconveniente - ${id} :: ${ip} :: ${uri} :: ${method} :: ${err}`, "Manager");
@@ -12,4 +12,4 @@ router.all("/echo", (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

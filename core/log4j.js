@@ -1,7 +1,7 @@
 const log4js = require('log4js');
 
 exports.log = (tipo, data, appenderName = 'Integrador') => {
-	const isDevMode = process.argv.slice(2)[0] === 'dev'; // Lee la variable de entorno DEVMODE
+	const isDevMode = process.env.NODE_ENV === 'dev'; // Lee la variable de entorno DEVMODE
 
 	const appenders = {
 		[appenderName]: {
@@ -18,6 +18,8 @@ exports.log = (tipo, data, appenderName = 'Integrador') => {
 	if (isDevMode) appenders.consoleAppender = { type: 'console' };
 
 	log4js.configure({
+		pm2: true,
+		pm2InstanceVar: 'INSTANCE_ID',
 		appenders,
 		categories: {
 			default: {
@@ -33,6 +35,8 @@ exports.log = (tipo, data, appenderName = 'Integrador') => {
 
 	if (tipo == 'debug') {
 		logger.debug(data);
+	} else if (tipo == 'trace') {
+		logger.trace(data);
 	} else if (tipo == 'error') {
 		logger.error(data);
 	} else if (tipo == 'warn') {
@@ -42,6 +46,6 @@ exports.log = (tipo, data, appenderName = 'Integrador') => {
 	}
 };
 
-exports.debug = data => {
+exports.ldebug = data => {
 	this.log('debug', data);
 };
