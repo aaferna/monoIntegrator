@@ -1,0 +1,1075 @@
+{
+	"info": {
+		"_postman_id": "c2b49678-ddec-4ba7-a62f-99c48e47a17a",
+		"name": "Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32099146",
+		"_collection_link": "https://www.postman.com/aaferna/workspace/monointegrator/collection/32099146-c2b49678-ddec-4ba7-a62f-99c48e47a17a?action=share&source=collection_link&creator=32099146"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Stores the token in a global variable",
+									"var token = pm.response.json().token;",
+									"pm.globals.set(\"session\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"administrator\",\n  \"password\": \"7180ac532b5c5ab4ffcaff5b2dc88afe\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/management/users/login",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"management",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"administrator\",\n  \"password\": \"7180ac532b5c5ab4ffcaff5b2dc88afe\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/management/users/login",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"management",
+										"users",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Process",
+									"value": "23538"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "351"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"15f-Ft3ZNy2cbQQInDtJFuI6jLVjP/o\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 Jan 2024 19:45:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"mensaje\": \"Inicio de sesión exitoso\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEsIm5hbWUiOiJhZG1pbmlzdHJhdG9yIiwibGFzdG5hbWUiOiIiLCJ0b2tlbiI6Ijk4NDNmZmM5LTc0OWYtNDJlNS1hMDljLTM4NzQ3Mjk3ZDMxNyIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZVVzZXJzIjp0cnVlfSwiaWF0IjoxNzA0MzExMTMwLCJleHAiOjE3MzU4NDcxMzB9.bVLCwTiCtTXZt7EOE0_KsEprw2lJ-B89q-ie05AUpmM\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Registro de Usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"NombreDelUsuario\",\n  \"lastname\": \"ApellidoDelUsuario\",\n  \"email\": \"correo@ejemplo.com\",\n  \"username\": \"NombreDeUsuarioUnico\",\n  \"password\": \"ContraseñaSecreta\",\n  \"permissions\": {\n    \"AccesoATodo\": true\n  }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/management/users/registro",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"management",
+								"users",
+								"registro"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Registro de Usuario",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"NombreDelUsuario\",\n  \"lastname\": \"ApellidoDelUsuario\",\n  \"email\": \"correo@ejemplo.com\",\n  \"username\": \"NombreDeUsuarioUnico\",\n  \"password\": \"ContraseñaSecreta\",\n  \"permissions\": {\n    \"AccesoATodo\": true\n  }\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/management/users/registro",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"management",
+										"users",
+										"registro"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Process",
+									"value": "27131"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "50"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"32-xDPSV5swtzKS76w+ylGnggtsHeQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 Jan 2024 22:45:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"mensaje\": \"Usuario creado con éxito\",\n    \"userid\": 3\n}"
+						}
+					]
+				},
+				{
+					"name": "Ruta Privada",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/privada",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"privada"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Ruta Privada",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server}}/privada",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"privada"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Process",
+									"value": "23538"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "250"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"fa-iNwZyGnSv4MsedWoBrMJW9k3kAQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 Jan 2024 19:45:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"c138b132-b8ab-4688-8c32-a0a78ce4668b\",\n    \"uri\": \"/privada\",\n    \"method\": \"GET\",\n    \"user\": {\n        \"userid\": 1,\n        \"name\": \"administrator\",\n        \"lastname\": \"\",\n        \"token\": \"9843ffc9-749f-42e5-a09c-38747297d317\",\n        \"permissions\": {\n            \"createUsers\": true\n        },\n        \"iat\": 1704311130,\n        \"exp\": 1735847130\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Token",
+			"item": [
+				{
+					"name": "Crear Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Stores the token id in a global variable",
+									"var bearer = pm.response.json().bearer;",
+									"var tokenId = pm.response.json().tokenid;",
+									"pm.globals.set(\"bearer\", bearer);",
+									"pm.globals.set(\"tokenid\", tokenId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userid\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/management/token/create",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"management",
+								"token",
+								"create"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Crear Token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{server}}/management/token/create",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"management",
+										"token",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Process",
+									"value": "23538"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "186"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ba-yZ1z/SMyR9ZEkHRwnwjvjnFmMU4\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 Jan 2024 19:45:56 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tokenid\": 1,\n    \"userid\": 1,\n    \"bearer\": \"d5f92e6d-387c-4966-9870-3cc409dd6a36\",\n    \"permissions\": null,\n    \"createdAt\": \"2024-01-03T19:45:56.306Z\",\n    \"updatedAt\": \"2024-01-03T19:45:56.306Z\",\n    \"deletedAt\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/management/token/:tokenId",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"management",
+								"token",
+								":tokenId"
+							],
+							"variable": [
+								{
+									"key": "tokenId",
+									"value": "{{tokenid}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Token",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{server}}/management/token/:tokenId",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"management",
+										"token",
+										":tokenId"
+									],
+									"variable": [
+										{
+											"key": "tokenId",
+											"value": "{{tokenid}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Process",
+									"value": "23538"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "41"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"29-PYG53sk3x/AhiKnxCE1MRnu9E00\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 Jan 2024 19:46:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"mensaje\": \"Token eliminado con éxito.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Set Permisos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"permissions\": {\n        \"createA\": true,\n        \"createB\": true,\n        \"createC\": true\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/management/token/permissions/:tokenid",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"management",
+								"token",
+								"permissions",
+								":tokenid"
+							],
+							"variable": [
+								{
+									"key": "tokenid",
+									"value": "{{tokenid}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Set Permisos",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"permissions\": {\n        \"createA\": true,\n        \"createB\": true,\n        \"createC\": true\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/management/token/permissions/:tokenid",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"management",
+										"token",
+										"permissions",
+										":tokenid"
+									],
+									"variable": [
+										{
+											"key": "tokenid",
+											"value": "{{tokenid}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Process",
+									"value": "27360"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "57"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"39-gqnJDx1FgxnBoGtMgyjx0J2FJQE\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 Jan 2024 22:52:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"mensaje\": \"Se asignaron los permisos al Token indicado\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Regenerate Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"permissions\": {\n        \"createA\": true,\n        \"createB\": true,\n        \"createC\": true\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/management/token/regenerate/:tokenid",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"management",
+								"token",
+								"regenerate",
+								":tokenid"
+							],
+							"variable": [
+								{
+									"key": "tokenid",
+									"value": "{{tokenid}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Set Permisos",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"permissions\": {\n        \"createA\": true,\n        \"createB\": true,\n        \"createC\": true\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/management/token/permissions/:tokenid",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"management",
+										"token",
+										"permissions",
+										":tokenid"
+									],
+									"variable": [
+										{
+											"key": "tokenid",
+											"value": "{{tokenid}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Process",
+									"value": "23538"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "236"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ec-Jbu8yIGB4cOSyBhjojNeL4i3IGo\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 Jan 2024 19:46:31 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tokenid\": 3,\n    \"userid\": 1,\n    \"bearer\": \"f126696d-203b-46d2-9d90-2f350a04bb8b\",\n    \"permissions\": \"{\\\"createA\\\":true,\\\"createB\\\":true,\\\"createC\\\":true}\",\n    \"createdAt\": \"2024-01-03T19:46:28.181Z\",\n    \"updatedAt\": \"2024-01-03T19:46:31.591Z\",\n    \"deletedAt\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Read Permisos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"permissions\": {\n        \"createA\": true\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/management/token/permissions/:tokenid",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"management",
+								"token",
+								"permissions",
+								":tokenid"
+							],
+							"variable": [
+								{
+									"key": "tokenid",
+									"value": "{{tokenid}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Read Permisos",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"permissions\": {\n        \"createA\": true\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/management/token/permissions/:tokenid",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"management",
+										"token",
+										"permissions",
+										":tokenid"
+									],
+									"variable": [
+										{
+											"key": "tokenid",
+											"value": "{{tokenid}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Process",
+									"value": "23538"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "62"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3e-gTeLqZhSn2MDf0Y8+RRAYNlojuo\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 Jan 2024 19:46:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"permissions\": {\n        \"createA\": true,\n        \"createB\": true,\n        \"createC\": true\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Listar Tokens",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/management/tokens/list/:userid",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"management",
+								"tokens",
+								"list",
+								":userid"
+							],
+							"variable": [
+								{
+									"key": "userid",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Listar Tokens",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server}}/management/tokens/list",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"management",
+										"tokens",
+										"list"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Process",
+									"value": "23538"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "425"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1a9-GdLcF6gE/74mxZVuWO1vIjAt6FM\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 Jan 2024 19:46:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"tokenid\": 1,\n        \"userid\": 1,\n        \"bearer\": \"d5f92e6d-387c-4966-9870-3cc409dd6a36\",\n        \"permissions\": null,\n        \"createdAt\": \"2024-01-03T19:45:56.306Z\",\n        \"updatedAt\": \"2024-01-03T19:45:56.306Z\",\n        \"deletedAt\": null\n    },\n    {\n        \"tokenid\": 3,\n        \"userid\": 1,\n        \"bearer\": \"f126696d-203b-46d2-9d90-2f350a04bb8b\",\n        \"permissions\": \"{\\\"createA\\\":true,\\\"createB\\\":true,\\\"createC\\\":true}\",\n        \"createdAt\": \"2024-01-03T19:46:28.181Z\",\n        \"updatedAt\": \"2024-01-03T19:46:31.591Z\",\n        \"deletedAt\": null\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Ruta Tokenizada",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/tokenizada",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"tokenizada"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Ruta Privada",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server}}/privada",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"privada"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Process",
+									"value": "23538"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "250"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"fa-iNwZyGnSv4MsedWoBrMJW9k3kAQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 Jan 2024 19:45:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"c138b132-b8ab-4688-8c32-a0a78ce4668b\",\n    \"uri\": \"/privada\",\n    \"method\": \"GET\",\n    \"user\": {\n        \"userid\": 1,\n        \"name\": \"administrator\",\n        \"lastname\": \"\",\n        \"token\": \"9843ffc9-749f-42e5-a09c-38747297d317\",\n        \"permissions\": {\n            \"createUsers\": true\n        },\n        \"iat\": 1704311130,\n        \"exp\": 1735847130\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

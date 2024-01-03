@@ -1,5 +1,7 @@
 require('dotenv').config();
-const dirFunc = './functions/', port =  parseInt(process.env.PORT) || 1900;
+const 	dirFunc = './functions/', 
+		dirModul = './modules/', 
+		port =  parseInt(process.env.PORT) || 1900;
 
 global.log = require('./core/log4j').log;
 global.logd = require('./core/log4j').ldebug;
@@ -7,7 +9,8 @@ global.fun = {};
 global.fs = require('fs');
 global.path = require('path');
 global.codePath = __dirname;
-global.fun =[];
+global.fun = [];
+global.modules = [];
 
 if (process.argv[2] === 'dev') {
 	process.env.NODE_ENV = process.argv[2]
@@ -54,6 +57,29 @@ try {
 	);
 }
 
+try {
+	const moduleFiles = walkSync(dirModul);
+	moduleFiles.forEach(file => {
+	  if (file.endsWith('/main.js')) {
+		const moduleDir = path.dirname(file);
+		const moduleName = path.basename(moduleDir);
+  
+		try {
+
+			modules[moduleName] = require(`./${file}`);
+			if (process.env.TRACE === 'true' || process.env.NODE_ENV === 'prd') {
+				log('info', `Módulo ${moduleName} detectado`);
+			}
+
+		} catch (error) {
+		  log('error', `Error al importar el módulo ${moduleName}: ${error}`);
+		}
+	  }
+	});
+} catch (error) {
+log('error', `Error al recorrer los directorios de módulos: ${error}`);
+}
+  
 const appserver = require('./server');
 appserver.listen(port, () => {
 	log(

@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon index.js dev",
-    "start": "node index.js"
+    "start": "node index.js",
+    "setup:cryptokey": "node tools/cryptoKey.js",
+    "prisma:su:mid": "npx prisma migrate dev --schema=./modules/userManagement/src/prisma/scheme.prisma",
+    "setup:usermanagement": "npm run setup:cryptokey SYSTEMUSER_SESSIONKEY && npm run setup:cryptokey SYSTEMUSER_PASSWORDKEY && npx prisma generate --schema=./modules/userManagement/src/prisma/scheme.prisma && npx prisma migrate deploy --schema=./modules/userManagement/src/prisma/scheme.prisma && node modules/userManagement/src/setup.js",
+    "setup:tokenmanagement": "npm run setup:cryptokey SYSTEMTOKEN_KEY && npx prisma generate --schema=./modules/tokenManagement/src/prisma/scheme.prisma && npx prisma migrate deploy --schema=./modules/tokenManagement/src/prisma/scheme.prisma && node modules/tokenManagement/src/setup.js"
   },
   "repository": {
     "type": "git",
@@ -18,15 +22,20 @@
   },
   "homepage": "https://github.com/aaferna/monoIntegrator#readme",
   "dependencies": {
+    "@prisma/client": "^5.7.1",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
+    "dotenv-safe": "^8.2.0",
     "express": "^4.18.1",
     "helmet": "^6.0.0",
+    "jsonwebtoken": "^9.0.2",
     "log4js": "^6.6.1",
+    "sqlite3": "^5.1.7-rc.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "prisma": "^5.7.1",
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "prisma": "^5.7.1"
   }
 }

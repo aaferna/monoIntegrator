@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./client"
+}
+
+datasource manager {
+  provider     = "sqlite"
+  url          = "file:../../../../db/userManagement.db"
+  relationMode = "prisma"
+}
+
+model Usuario {
+  userid      Int       @id @default(autoincrement())
+  name        String?
+  lastname    String?
+  email       String    @unique
+  username    String    @unique
+  password    String?
+  session     String?
+  token       String?   @unique
+  permissions String?
+  createdAt   DateTime  @default(now()) // Fecha de creación automática
+  updatedAt   DateTime  @updatedAt // Fecha de actualización automática
+  deletedAt   DateTime? // Fecha de eliminación opcional
+}
+
+model Token {
+  tokenid     Int       @id @default(autoincrement())
+  userid      Int?      
+  bearer      String?   @unique
+  permissions String?
+  createdAt   DateTime  @default(now()) // Fecha de creación automática
+  updatedAt   DateTime  @updatedAt // Fecha de actualización automática
+  deletedAt   DateTime? // Fecha de eliminación opcional
+}
