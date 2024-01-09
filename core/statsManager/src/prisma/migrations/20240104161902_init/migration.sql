@@ -1,0 +1,8 @@
+-- CreateTable
+CREATE TABLE "AccessLog" (
+    "log_id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "timestamp" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "method" TEXT NOT NULL,
+    "endpoint" TEXT NOT NULL,
+    "ip" TEXT NOT NULL
+);

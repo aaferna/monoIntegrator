@@ -1,0 +1,18 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./client"
+}
+
+datasource manager {
+  provider     = "sqlite"
+  url          = "file:../../../../db/statsManager.db"
+  relationMode = "prisma"
+}
+
+model AccessLog {
+  log_id    Int      @id @default(autoincrement())
+  timestamp DateTime @default(now())
+  method    String
+  endpoint  String
+  ip        String
+}

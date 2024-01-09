@@ -6,6 +6,11 @@ router.post("/management/token/create", fun['userManagement'].authenticateSessio
   const userToUse = userid || req.user.userid; // Usar el userid del cuerpo o del req.user
 
   try {
+
+    if (!req.user.permissions.adminUser || !req.user.permissions.createToken) {
+      return res.status(401).json({ mensaje: 'No tiene el permiso para poder crear tokens' });
+    }
+
     const client = modules['userManagement'].Client();
 
     const nuevoToken = await client.token.create({

@@ -4,6 +4,11 @@ router.put("/management/token/permissions/:tokenid", fun['userManagement'].authe
     const { permissions } = req.body; // Obtener las nuevas capacidades desde el cuerpo de la solicitud
   
     try {
+
+      if (!req.user.permissions.adminUser || !req.user.permissions.createToken) {
+        return res.status(401).json({ mensaje: 'No tiene el permiso para poder asignar permisos a los tokens' });
+      }
+
       const client = modules['userManagement'].Client();
   
       // Verificar si el token que se va a actualizar pertenece al usuario autenticado

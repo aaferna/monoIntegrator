@@ -3,6 +3,11 @@ router.delete("/management/token/:tokenid", fun['userManagement'].authenticateSe
     const { tokenid } = req.params; // Obtener el ID del token de los parámetros de la URL
   
     try {
+
+      if (!req.user.permissions.adminUser || !req.user.permissions.deleteToken) {
+        return res.status(401).json({ mensaje: 'No tiene el permiso para poder crear tokens' });
+      }
+
       const client = modules['userManagement'].Client();
   
       // Verificar si el token que se va a eliminar pertenece al usuario autenticado

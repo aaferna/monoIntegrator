@@ -1,5 +1,6 @@
 log/*
 db/*
-modules/userManagement/src/prisma/client
 .DS_Store
 node_modules
+modules/userManagement/src/prisma/client
+core/statsManager/src/prisma/client

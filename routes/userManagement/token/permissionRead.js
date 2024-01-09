@@ -3,6 +3,10 @@ router.get("/management/token/permissions/:tokenid", fun['userManagement'].authe
     const { tokenid } = req.params; // Obtener el ID del token de los parámetros de la URL
   
     try {
+      if (!req.user.permissions.adminUser || !req.user.permissions.viewToken) {
+        return res.status(401).json({ mensaje: 'No tiene el permiso para poder asignar permisos a los tokens' });
+      }
+
       const client = modules['userManagement'].Client();
   
       // Verificar si el token que se va a consultar pertenece al usuario autenticado

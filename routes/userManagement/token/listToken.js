@@ -6,6 +6,14 @@ router.get("/management/tokens/list/:userid?", fun['userManagement'].authenticat
   const userToUse = userid || req.user.userid;
 
   try {
+    if (!req.user.permissions.adminUser || !req.user.permissions.viewToken) {
+      return res.status(401).json({ mensaje: 'No tiene el permiso para poder ver tokens' });
+    }
+
+    if(req.user.userid && !req.user.permissions.adminUser){
+      return res.status(401).json({ mensaje: 'No tiene el permiso para poder ver tokens de otros usuarios' });
+    }
+
     const client = modules['userManagement'].Client();
 
     // Buscar todos los tokens asociados al usuario autenticado o al userid proporcionado

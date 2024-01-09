@@ -6,7 +6,7 @@ router.post('/management/users/registro', fun['userManagement'].authenticateSess
 
         try {
 
-            if (!req.user.permissions.createUsers) {
+            if (!req.user.permissions.createUsers || !req.user.permissions.adminUser) {
                 return res.status(401).json({ mensaje: 'No tiene el permiso para poder crear usuarios' });
             }
 

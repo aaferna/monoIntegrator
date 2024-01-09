@@ -15,15 +15,12 @@ const dirRout = './routes/';
 global.trx = trx;
 global.router = express.Router();
 
+
 app.use(express.json());
 
-if (process.env.ENABLE_HELMET === 'true') {
-	app.use(helmet(helmetFile));
-}
-
-if (process.env.ENABLE_CORS === 'true') {
-	app.use(cors(corsFile));
-}
+if (process.env.ENABLE_STATMANAGEMENT === 'true') app.use(require('./core/statsManager/mdlw'));
+if (process.env.ENABLE_HELMET === 'true') app.use(helmet(helmetFile));
+if (process.env.ENABLE_CORS === 'true') app.use(cors(corsFile));
 
 app.use(jsonErrorHandler);
 

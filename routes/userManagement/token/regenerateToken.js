@@ -5,6 +5,11 @@ router.put("/management/token/regenerate/:tokenid", fun['userManagement'].authen
   const { tokenid } = req.params; // Obtener el ID del token de los parámetros de la URL
 
   try {
+
+    if (!req.user.permissions.adminUser || !req.user.permissions.createToken) {
+      return res.status(401).json({ mensaje: 'No tiene el permiso para poder regenerar tokens' });
+    }
+
     const client = modules['userManagement'].Client();
 
     // Verificar si el token que se va a regenerar pertenece al usuario autenticado

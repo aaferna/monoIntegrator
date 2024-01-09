@@ -1,15 +1,17 @@
 {
   "name": "monointegrator",
-  "version": "2.0.1",
+  "version": "3.3.0",
   "description": "monoIntegrator",
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon index.js dev",
     "start": "node index.js",
+    "setup": "npm run setup:sm && npm run setup:um",
     "setup:cryptokey": "node tools/cryptoKey.js",
-    "prisma:su:mid": "npx prisma migrate dev --schema=./modules/userManagement/src/prisma/scheme.prisma",
-    "setup:usermanagement": "npm run setup:cryptokey SYSTEMUSER_SESSIONKEY && npm run setup:cryptokey SYSTEMUSER_PASSWORDKEY && npx prisma generate --schema=./modules/userManagement/src/prisma/scheme.prisma && npx prisma migrate deploy --schema=./modules/userManagement/src/prisma/scheme.prisma && node modules/userManagement/src/setup.js",
-    "setup:tokenmanagement": "npm run setup:cryptokey SYSTEMTOKEN_KEY && npx prisma generate --schema=./modules/tokenManagement/src/prisma/scheme.prisma && npx prisma migrate deploy --schema=./modules/tokenManagement/src/prisma/scheme.prisma && node modules/tokenManagement/src/setup.js"
+    "setup:um": "node modules/userManagement/src/setup/step1.js && node modules/userManagement/src/setup/step2.js",
+    "setup:um:mip": "npx prisma migrate deploy --schema=./modules/userManagement/src/prisma/scheme.prisma",
+    "setup:sm": "node core/statsManager/src/setup/step1.js",
+    "setup:sm:mip": "npx prisma migrate deploy --schema=./core/statsManager/src/scheme.prisma"
   },
   "repository": {
     "type": "git",
@@ -31,6 +33,7 @@
     "helmet": "^6.0.0",
     "jsonwebtoken": "^9.0.2",
     "log4js": "^6.6.1",
+    "readline": "^1.3.0",
     "sqlite3": "^5.1.7-rc.0",
     "uuid": "^9.0.0"
   },
