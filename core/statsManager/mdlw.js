@@ -6,7 +6,7 @@ async function logAccess(req, res, next) {
   const { method, originalUrl } = req;
 
 
-  if (originalUrl != '/management/stats/endpoints') {
+  if (originalUrl != '/management/stats/endpoints' && process.env.ENABLE_STATMANAGEMENT == 'TRUE') {
 
     // Obtener la IP del cliente
     let ip = req.ip;
@@ -28,6 +28,7 @@ async function logAccess(req, res, next) {
       console.error('Error al registrar el acceso:', err);
     }
   }
+
   next();
 }
 
