@@ -30,7 +30,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"username\": \"administrator\",\n  \"password\": \"7180ac532b5c5ab4ffcaff5b2dc88afe\"\n}\n",
+							"raw": "{\n  \"username\": \"administrator\",\n  \"password\": \"3d9a8394f0ebcb08d4e152119346ed81\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -921,7 +921,7 @@
 							"variable": [
 								{
 									"key": "userid",
-									"value": ""
+									"value": "1"
 								}
 							]
 						}
@@ -1066,6 +1066,98 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"id\": \"c138b132-b8ab-4688-8c32-a0a78ce4668b\",\n    \"uri\": \"/privada\",\n    \"method\": \"GET\",\n    \"user\": {\n        \"userid\": 1,\n        \"name\": \"administrator\",\n        \"lastname\": \"\",\n        \"token\": \"9843ffc9-749f-42e5-a09c-38747297d317\",\n        \"permissions\": {\n            \"createUsers\": true\n        },\n        \"iat\": 1704311130,\n        \"exp\": 1735847130\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Stats",
+			"item": [
+				{
+					"name": "Endpoints",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{session}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/management/stats/endpoints",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"management",
+								"stats",
+								"endpoints"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Listar Tokens",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server}}/management/tokens/list",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"management",
+										"tokens",
+										"list"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Process",
+									"value": "23538"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "425"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1a9-GdLcF6gE/74mxZVuWO1vIjAt6FM\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 Jan 2024 19:46:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"tokenid\": 1,\n        \"userid\": 1,\n        \"bearer\": \"d5f92e6d-387c-4966-9870-3cc409dd6a36\",\n        \"permissions\": null,\n        \"createdAt\": \"2024-01-03T19:45:56.306Z\",\n        \"updatedAt\": \"2024-01-03T19:45:56.306Z\",\n        \"deletedAt\": null\n    },\n    {\n        \"tokenid\": 3,\n        \"userid\": 1,\n        \"bearer\": \"f126696d-203b-46d2-9d90-2f350a04bb8b\",\n        \"permissions\": \"{\\\"createA\\\":true,\\\"createB\\\":true,\\\"createC\\\":true}\",\n        \"createdAt\": \"2024-01-03T19:46:28.181Z\",\n        \"updatedAt\": \"2024-01-03T19:46:31.591Z\",\n        \"deletedAt\": null\n    }\n]"
 						}
 					]
 				}
